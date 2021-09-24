@@ -3,7 +3,7 @@ const express = require('express');
 
 connectToDB();
 const app = express();
-
+app.use(express.json())
 //All Routes
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/notes', require('./routes/notes'))
