@@ -4,8 +4,12 @@ const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const dotenv = require("dotenv");
+const fetchUser = require('../middleware/fetchUser')
 
-const JWT_SECRET = 'IAmAGoodBoyIYKYK'
+dotenv.config();
+
+const JWT_SECRET = process.env.SECRET_CODE;
 
 
 //CREATING USER: POST METHOD
@@ -88,6 +92,19 @@ router.post('/login',[
   } catch (error) {
     console.error(error)
     res.status(500).json({error: "Something went wrong!"})
+  }
+})
+
+//Authenticating a user using auth token: /api/auth/getuser
+router.post('/getuser', fetchUser, async (req, res) =>{
+  //using a middleware so that we do not have to write the same code again & again where we need authentication
+  try {
+    userId = req.user.id;
+    const user = await User.findById(userId).select("-password")
+    res.send(user)
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Something went wrong!')
   }
 })
 
