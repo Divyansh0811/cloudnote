@@ -3,6 +3,7 @@ const router = express.Router();
 const fetchUser = require("../middleware/fetchUser");
 const Notes = require("../models/Notes");
 const { body, validationResult } = require("express-validator");
+const { update } = require("../models/Notes");
 
 //Fetching all notes  GET: "/api/notes/fetchallnotes". LOGIN REQUIRED
 router.get("/fetchallnotes", fetchUser, async (req, res) => {
@@ -41,4 +42,22 @@ router.post(
  }
 );
 
+//UPDATE an existing note: PUT: "/api/notes/updatenote". LOGIN REQUIRED
+router.put('/updatenote/:id', fetchUser,async (req, res) => {
+  const {title, description, tags} = req.body;
+
+  const updatedNote = {};
+  if(title){updatedNote.title = title}
+  if(description){updatedNote.description = description}
+  if(tags){updatedNote.tags =tags}
+
+  var note = await Notes.findById(req.params.id)
+  if(!note){return res.status(401).send("Not allowed")}
+  if(note.user.toString() !== req.user.id){
+    return res.status(401).send("Not authorised")
+  }
+
+  note = await Notes.findByIdAndUpdate(req.params.id, {$set: updatedNote}, {new: true})
+  res.json(note)
+})
 module.exports = router;
