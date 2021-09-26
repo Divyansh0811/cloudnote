@@ -1,0 +1,52 @@
+.note{
+  width: 300px;
+  margin: 0px 25px 40px 25px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #fdfbfb;
+}
+
+
+
+.note-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.note-tags{
+  font-size: 15px;
+  font-family: 'VT323', monospace;
+  color: #be9656;
+  line-height: 20px;
+  margin-top: 15px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.note-title{
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.note-creation-time{
+  font-style: italic;
+  font-size: 13px;
+  color: #999;
+  margin-top: 10px;
+}
+
+.note-description{
+  font-size: 15px;
+  columns: #444;
+  line-height: 24px;
+  margin-top: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}

@@ -1,0 +1,45 @@
+.write{
+  padding-top: 50px;
+}
+
+.write-form{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.write-form-group{
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+
+
+.write-input{
+  font-size: 30px;
+  border: none;
+  padding: 20px;
+  width: 70vw;
+}
+
+.write-input:focus{
+  outline: none;
+}
+
+.write-text{
+  font-size: 20px;
+  height: 10vh;
+}
+
+.write-submit{
+  position: absolute;
+  color: white;
+  background-color: teal;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 25px;
+}
+
