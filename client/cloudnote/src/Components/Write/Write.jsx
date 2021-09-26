@@ -13,10 +13,11 @@ function Write() {
       type="text"
       className="write-input write-text"
      ></textarea>
-    </div>
-    <button className="write-submit" type="submit">
+     <button className="write-submit" type="submit">
      Add
     </button>
+    </div>
+    
    </form>
   </div>
  );

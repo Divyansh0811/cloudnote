@@ -10,6 +10,7 @@
 
 .write-form-group{
   display: flex;
+  flex-direction: column;
   align-items: center;
   margin: auto;
 }
@@ -33,9 +34,9 @@
 }
 
 .write-submit{
-  position: absolute;
-  color: white;
-  background-color: teal;
+  margin-top: 10px;
+  color: black;
+  background-color: white;
   padding: 10px;
   border: none;
   border-radius: 10px;
