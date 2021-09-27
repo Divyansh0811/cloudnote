@@ -23,9 +23,11 @@
 
 .login-form > label{
   margin: 10px 0;
+  font-size: medium;
 }
 
 .login-input{
+  font-size: large;
   padding: 10px;
   background: none;
   border: none;
