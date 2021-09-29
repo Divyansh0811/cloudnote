@@ -86,6 +86,8 @@ const Notes = () => {
           value={note.etitle}
           aria-describedby="emailHelp"
           onChange={onChange}
+          minLength={5}
+          required
          />
         </div>
         <div className="mb-3">
@@ -99,6 +101,8 @@ const Notes = () => {
           name="edescription"
           value={note.edescription}
           onChange={onChange}
+          minLength={5}
+          required
          />
         </div>
         <div className="mb-3">
@@ -125,7 +129,7 @@ const Notes = () => {
        >
         Close
        </button>
-       <button type="button" className="btn btn-primary" onClick={handleSubmit}>
+       <button type="button" className="btn btn-primary" onClick={handleSubmit} disabled={note.etitle.length <3 || note.edescription.length < 5}>
         Update note
        </button>
       </div>
@@ -134,6 +138,9 @@ const Notes = () => {
    </div>
    <div className="row my-3">
     <h2 style={{ marginTop: 50 }}>Your notes:</h2>
+    <div className="container">
+      {notes.length === 0 && 'No notes to diplay.'}
+    </div>
     {notes.map((note) => {
      return <SingleNote key={note._id} note={note} updateNote={updateNote} />;
     })}
