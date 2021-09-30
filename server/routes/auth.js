@@ -26,7 +26,8 @@ router.post(
   //if validation errors:
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-   return res.status(400).json({ errors: errors.array() });
+    success = false
+   return res.status(400).json({success, errors: errors.array() });
   }
   try {
    //if email already in use (email was supposed to be unique)
@@ -51,7 +52,7 @@ router.post(
    }
 
    const authToken = jwt.sign(data, JWT_SECRET)
-   res.json({authToken}); // sending user as response
+   res.json({ authToken}); // sending user as response
   } catch (error) {
    console.error(error);
    res.status(500).send("Something went wrong");
@@ -65,21 +66,25 @@ router.post('/login',[
   body("password", "Password cannot be empty").exists(),
 ], async (req, res) =>{
   //if validation errors:
+  let success = true;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-   return res.status(400).json({ errors: errors.array() });
+    success = false;
+   return res.status(400).json({ success,errors: errors.array() });
   }
 
   const{email, password} = req.body;
   try {
     let user = await User.findOne({email})
     if(!user){
-      return res.status(400).json({error: "Wrong credentials!"})
+      success = false;
+      return res.status(400).json({success,error: "Wrong credentials!"})
     }
 
     const comparedPassword = await bcrypt.compare(password, user.password)
     if(!comparedPassword){
-      return res.status(400).json({error: "Wrong credentials!"})
+      success = false;
+      return res.status(400).json({success, error: "Wrong credentials!"})
     }
     const data = {
       user:{
@@ -88,7 +93,7 @@ router.post('/login',[
     }
  
     const authToken = jwt.sign(data, JWT_SECRET)
-    res.json({authToken});
+    res.json({success, authToken});
   } catch (error) {
     console.error(error)
     res.status(500).json({error: "Something went wrong!"})
