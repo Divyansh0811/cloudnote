@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {useHistory} from 'react-router-dom'
 
-const Signup = () => {
+const Signup = (props) => {
   const [credentials, setCredentials] = useState({name: "",email: "", password: ""})
   let history = useHistory();
  const handleSubmit = async (e) => {
@@ -15,9 +15,14 @@ const Signup = () => {
   });
   const res = await response.json();
   console.log(res);
-  
-    localStorage.setItem('token', res.authToken) // storing auth into localstorage
-    history.push("/")  // redirecting user to the home page
+    if(res.success){
+
+      localStorage.setItem('token', res.authToken) // storing auth into localstorage
+      history.push("/")  // redirecting user to the home page
+      props.showAlert("Account created successfully!", "success")
+    }else{
+      props.showAlert("Invalid Credentials!", "Error")
+    }
   
  };
  const onChange  = (e) => {
@@ -77,7 +82,7 @@ const Signup = () => {
      />
     </div>
 
-    <button type="submit" className="btn btn-primary">
+    <button type="submit" className="btn btn-primary" style={{color:"black", background:"white"}}>
      Submit
     </button>
    </form>

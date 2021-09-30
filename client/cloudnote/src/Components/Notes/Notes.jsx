@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router";
 import noteContext from "../../Context/notes/noteContext";
 import AddNotes from "../AddNotes";
 import SingleNote from "./SingleNote";
-const Notes = () => {
+const Notes = (props) => {
  const context = useContext(noteContext);
+ let history = useHistory()
  const { notes, getAllNotes, editNote } = context;
  const [note, setNote] = useState({
   id: "",
@@ -12,7 +14,12 @@ const Notes = () => {
   etags: "",
  });
  useEffect(() => {
-  getAllNotes();
+   if(localStorage.getItem("token")){
+     getAllNotes();
+   }
+   else{
+     history.push("/login")
+   }
   //eslint-disable-next-line
  }, []);
 
@@ -26,11 +33,12 @@ const Notes = () => {
    edescription: currentNote.description,
    etags: currentNote.tags,
   });
- };
+};
 
- const handleSubmit = (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
   editNote(note.id, note.etitle, note.edescription, note.etags);
+  props.showAlert("Note Updated succesfully", "success")
   refClose.current.click();
  };
  const onChange = (e) => {
@@ -38,7 +46,7 @@ const Notes = () => {
  };
  return (
   <>
-   <AddNotes />
+   <AddNotes showAlert={props.showAlert} />
    <button
     ref={ref}
     type="button"
@@ -142,7 +150,7 @@ const Notes = () => {
       {notes.length === 0 && 'No notes to diplay.'}
     </div>
     {notes.map((note) => {
-     return <SingleNote key={note._id} note={note} updateNote={updateNote} />;
+     return <SingleNote key={note._id} note={note} updateNote={updateNote} showAlert={props.showAlert}/>;
     })}
    </div>
   </>

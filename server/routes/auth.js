@@ -23,6 +23,7 @@ router.post(
   }),
  ],
  async (req, res) => {
+   let success = true
   //if validation errors:
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -33,7 +34,8 @@ router.post(
    //if email already in use (email was supposed to be unique)
    let user = await User.findOne({ email: req.body.email });
    if (user) {
-    return res.status(400).json({ error: "Email already in use" });
+     success = false
+    return res.status(400).json({success, error: "Email already in use" });
    }
    var salt = await bcrypt.genSaltSync(10);
    const hashedPassword = await bcrypt.hash(req.body.password, salt)
@@ -52,7 +54,7 @@ router.post(
    }
 
    const authToken = jwt.sign(data, JWT_SECRET)
-   res.json({ authToken}); // sending user as response
+   res.json({ success, authToken}); // sending user as response
   } catch (error) {
    console.error(error);
    res.status(500).send("Something went wrong");
