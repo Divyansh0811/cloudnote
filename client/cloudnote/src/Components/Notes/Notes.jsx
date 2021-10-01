@@ -13,8 +13,10 @@ const Notes = (props) => {
   edescription: "",
   etags: "",
  });
+
  useEffect(() => {
    if(localStorage.getItem("token")){
+  
      getAllNotes();
    }
    else{
@@ -146,12 +148,12 @@ const handleSubmit = (e) => {
    </div>
    <div className="row my-3">
     <h2 style={{ marginTop: 50 }}>Your notes:</h2>
-    <div className="container">
+    <div className="container my-2" style={{marginTop: 30}}>
       {notes.length === 0 && 'No notes to diplay.'}
-    </div>
     {notes.map((note) => {
-     return <SingleNote key={note._id} note={note} updateNote={updateNote} showAlert={props.showAlert}/>;
+      return <SingleNote key={note._id} note={note} updateNote={updateNote} showAlert={props.showAlert}/>;
     })}
+    </div>
    </div>
   </>
  );
