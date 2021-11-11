@@ -9,9 +9,8 @@ const Navbar = () => {
  };
  return (
   <div className=" navbar d-flex" style={{ display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch'}}>
-   <h2 className="container" style={{ color: "black" }}>
+    flexDirection: 'column'}}>
+   <h2 className="container" style={{ color: "black", justifyContent:'center' }}>
     <Link to="/" style={{ color: "black", textDecoration: "none" }}>
      Welcome to Cloudnote!
     </Link>
