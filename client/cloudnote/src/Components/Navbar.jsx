@@ -6,6 +6,7 @@ const Navbar = () => {
  const handleLogout = () => {
   localStorage.removeItem("token");
   history.push("/login");
+  window.location.reload()
  };
  return (
   <div className=" navbar d-flex" style={{ display: 'flex',
@@ -15,7 +16,7 @@ const Navbar = () => {
      Welcome to Cloudnote!
     </Link>
    </h2>
-   {!localStorage.getItem("token") ? (
+   {!localStorage.getItem("token")? (
     <form className="d-flex" style={{ display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch'}}>
