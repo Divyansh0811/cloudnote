@@ -10,6 +10,4 @@ app.use('/api/auth', require('./routes/auth'))
 app.use('/api/notes', require('./routes/notes'))
 
 //listening to our express app
-app.listen("5000", () =>{
-  console.log("hey, your backend is running on port 5000")
-})
+app.listen(process.env.PORT || 5000, () => console.log(`Server has started.`));
